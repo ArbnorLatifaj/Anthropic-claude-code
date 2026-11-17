@@ -18,9 +18,10 @@ step. Open `index.html` in a browser and you are looking at the site.
 
 ## Still to replace before going live
 
-- **Pictures** — every drawing in `assets/images/` is a placeholder for a real
-  project photo or render.
-- **Project names, places and years** — in "Chapter II — Work" in `index.html`.
+- **Pictures** — project photos live in `assets/images/photos/`. The Hillside
+  Residence photos are in; the Garage Loft, Aubergine Kitchen, Car Showroom and
+  Business Units tiles still show placeholder drawings until their photos are added.
+- **Project places and years** — in "Chapter II — Work" in `index.html`.
 - **The three numbers** — "00 years / 00 projects / 00 people" in Chapter V.
 - **Contact details** — email, phone, address and social links (they appear in
   the menu and in Chapter V; the contact form also sends to this email).

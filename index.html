@@ -13,7 +13,6 @@
   <link rel="preload" href="assets/fonts/special-elite-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip" href="#studio">Skip to content</a>
@@ -27,15 +26,9 @@
     </div>
   </header>
 
-  <!-- ───────────── Full-screen menu ───────────── -->
+  <!-- ───────────── Full-screen menu (chapter links built from the chapters by script.js) ───────────── -->
   <div class="menu" id="menu" aria-hidden="true">
-    <nav class="menu-nav" aria-label="Chapters">
-      <a href="#studio"><span class="type">chapter I</span><span class="menu-word">Studio</span></a>
-      <a href="#work"><span class="type">chapter II</span><span class="menu-word">Work</span></a>
-      <a href="#process"><span class="type">chapter III</span><span class="menu-word">Process</span></a>
-      <a href="#places"><span class="type">chapter IV</span><span class="menu-word">Places</span></a>
-      <a href="#contact"><span class="type">chapter V</span><span class="menu-word">Contact</span></a>
-    </nav>
+    <nav class="menu-nav" aria-label="Chapters"></nav>
     <div class="menu-side">
       <div><p class="cap dim">Mail</p><p><a href="mailto:hello@your-domain.com">hello@your-domain.com</a></p></div>
       <div><p class="cap dim">Phone</p><p><a href="tel:+00000000000">+000 00 000 000</a></p></div>
@@ -44,14 +37,8 @@
     </div>
   </div>
 
-  <!-- ───────────── Fixed chapter progress bar ───────────── -->
-  <nav class="chapterbar" aria-label="Chapter progress">
-    <a href="#studio" data-bar="studio"><span class="cap"><span class="hide-s">Chapter </span>I</span><span class="bar"><i></i></span></a>
-    <a href="#work" data-bar="work"><span class="cap"><span class="hide-s">Chapter </span>II</span><span class="bar"><i></i></span></a>
-    <a href="#process" data-bar="process"><span class="cap"><span class="hide-s">Chapter </span>III</span><span class="bar"><i></i></span></a>
-    <a href="#places" data-bar="places"><span class="cap"><span class="hide-s">Chapter </span>IV</span><span class="bar"><i></i></span></a>
-    <a href="#contact" data-bar="contact"><span class="cap"><span class="hide-s">Chapter </span>V</span><span class="bar"><i></i></span></a>
-  </nav>
+  <!-- ───────────── Fixed chapter progress bar (built from the chapters by script.js) ───────────── -->
+  <nav class="chapterbar" aria-label="Chapter progress"></nav>
 
   <main>
     <!-- ═════════════ Opening ═════════════ -->
@@ -59,7 +46,7 @@
       <div class="pin">
         <div class="intro-frame"><img src="assets/images/photos/hillside-residence-01.jpg" alt="" width="2000" height="1125"></div>
         <h1 class="intro-wordmark" aria-label="kolektiva."><span class="wordmark-text" aria-hidden="true">kolektiva.</span></h1>
-        <p class="stack intro-headline" data-split>
+        <p class="stack hero-headline intro-headline" data-split>
           <span class="ln">No one</span>
           <span class="ln">builds</span>
           <span class="ln accent">alone.</span>
@@ -82,11 +69,11 @@
         </div>
       </div>
 
-      <div class="about">
+      <div class="grid about">
         <figure class="about-media" data-view>
           <img src="assets/images/photos/hillside-residence-04.jpg" alt="Hillside Residence: stone and timber house with deep roof overhangs" width="2000" height="1125" loading="lazy">
         </figure>
-        <h2 class="stack about-headline" data-split data-view>
+        <h2 class="stack hero-headline about-headline" data-split data-view>
           <span class="ln">Many</span>
           <span class="ln">hands,</span>
           <span class="ln accent">one house.</span>
@@ -124,7 +111,8 @@
 
     <!-- ═════════════ Chapter II — Work ═════════════
          Each <figure class="tile"> is one project: swap the image file and
-         edit the title and the line beneath it. -->
+         edit the title and the line beneath it. The numbers 01, 02 … and the
+         count count themselves. -->
     <section class="chapter" id="work" data-chapter>
       <div class="scene divider" data-pin>
         <div class="pin">
@@ -144,42 +132,43 @@
         </div>
       </div>
 
-      <div class="collage">
-        <p class="collage-count"><span class="cap"><b>Selected</b> works</span><span class="count-num">05</span></p>
-
-        <figure class="tile tile--1" data-view style="--speed: 60px">
+      <div class="grid collage">
+        <figure class="tile tile--1 drift" data-view style="--speed: 60px">
           <div class="tile-media"><img src="assets/images/photos/hillside-residence-02.jpg" alt="Hillside Residence: aerial view of the house and its curving driveway" width="1500" height="844" loading="lazy"></div>
-          <figcaption><span class="type accent">01</span><span class="tile-title">Hillside Residence</span><span class="cap dim">Residential — Location, Year</span></figcaption>
+          <figcaption><span class="tile-title">Hillside Residence</span><span class="cap dim">Residential — Location, Year</span></figcaption>
         </figure>
 
-        <figure class="tile tile--2" data-view style="--speed: 120px">
+        <figure class="tile tile--2 drift" data-view style="--speed: 120px">
           <div class="tile-media"><img src="assets/images/dark-09.svg" alt="Placeholder drawing until the Garage Loft photo is added" width="1600" height="1200" loading="lazy"></div>
-          <figcaption><span class="type accent">02</span><span class="tile-title">Garage Loft</span><span class="cap dim">Interior — Location, Year</span></figcaption>
+          <figcaption><span class="tile-title">Garage Loft</span><span class="cap dim">Interior — Location, Year</span></figcaption>
         </figure>
 
-        <figure class="tile tile--3" data-view style="--speed: 30px">
+        <figure class="tile tile--3 drift" data-view style="--speed: 30px">
           <div class="tile-media"><img src="assets/images/dark-06.svg" alt="Placeholder drawing until the café photo is added" width="1600" height="1200" loading="lazy"></div>
-          <figcaption><span class="type accent">03</span><span class="tile-title">Aubergine Kitchen</span><span class="cap dim">Café interior — Location, Year</span></figcaption>
+          <figcaption><span class="tile-title">Aubergine Kitchen</span><span class="cap dim">Café interior — Location, Year</span></figcaption>
         </figure>
 
-        <p class="stack phrase phrase--1" data-view style="--speed: 200px"><span class="ln accent">Simple</span><span class="ln">to</span><span class="ln">read</span></p>
+        <p class="stack phrase phrase--1 drift" data-view style="--speed: 200px"><span class="ln accent">Simple</span><span class="ln">to</span><span class="ln">read</span></p>
 
-        <figure class="tile tile--4" data-view style="--speed: 90px">
+        <figure class="tile tile--4 drift" data-view style="--speed: 90px">
           <div class="tile-media"><img src="assets/images/dark-01.svg" alt="Placeholder drawing until the car showroom photo is added" width="1600" height="1200" loading="lazy"></div>
-          <figcaption><span class="type accent">04</span><span class="tile-title">Car Showroom</span><span class="cap dim">Commercial — Location, Year</span></figcaption>
+          <figcaption><span class="tile-title">Car Showroom</span><span class="cap dim">Commercial — Location, Year</span></figcaption>
         </figure>
 
-        <p class="stack phrase phrase--2" data-view style="--speed: 180px"><span class="ln accent">Honest</span><span class="ln">in</span><span class="ln">material</span></p>
+        <p class="stack phrase phrase--2 drift" data-view style="--speed: 180px"><span class="ln accent">Honest</span><span class="ln">in</span><span class="ln">material</span></p>
 
-        <figure class="tile tile--5" data-view style="--speed: 40px">
+        <figure class="tile tile--5 drift" data-view style="--speed: 40px">
           <div class="tile-media"><img src="assets/images/dark-07.svg" alt="Placeholder drawing until the business units photo is added" width="1600" height="1200" loading="lazy"></div>
-          <figcaption><span class="type accent">05</span><span class="tile-title">Business Units</span><span class="cap dim">Commercial — Location, Year</span></figcaption>
+          <figcaption><span class="tile-title">Business Units</span><span class="cap dim">Commercial — Location, Year</span></figcaption>
         </figure>
 
-        <p class="stack phrase phrase--3" data-view style="--speed: 160px"><span class="ln accent">Generous</span><span class="ln">to the</span><span class="ln">street</span></p>
+        <p class="stack phrase phrase--3 drift" data-view style="--speed: 160px"><span class="ln accent">Generous</span><span class="ln">to the</span><span class="ln">street</span></p>
+
+        <!-- Counts the tiles above, so it is placed after them; the layout moves it to the top. -->
+        <p class="collage-count"><span class="cap"><b>Selected</b> works</span><span class="count-num"></span></p>
       </div>
 
-      <div class="statement" data-view>
+      <div class="grid statement" data-view>
         <p class="cap statement-note"><b>Designed</b><br>to be used<br>every day</p>
         <p class="statement-text" data-words>Every building is a long conversation between a client, a site, a budget and the people who will walk past it every single day.</p>
       </div>
@@ -194,7 +183,7 @@
         </div>
       </div>
 
-      <div class="process-head" data-view>
+      <div class="grid process-head" data-view>
         <p class="cap process-note">How <b>an idea</b> becomes a building</p>
         <h2 class="stack big-headline" data-split>
           <span class="ln">From the</span>
@@ -204,7 +193,7 @@
         </h2>
       </div>
 
-      <div class="scene sheets" data-pin data-hscroll>
+      <div class="scene sheets" data-pin data-hscroll="0.45">
         <div class="pin">
           <ol class="track">
             <li class="sheet">
@@ -281,19 +270,19 @@
         </div>
       </div>
 
-      <div class="numbers">
+      <div class="grid numbers">
         <h2 class="stack big-headline numbers-headline" data-split data-view>
           <span class="ln">Work that</span>
           <span class="ln">is used,</span>
           <span class="ln accent">loved &amp; kept.</span>
         </h2>
-        <p class="num num--1" data-view style="--speed: 80px"><span class="num-fig">00</span><span class="cap"><b>Years</b><br>of practice</span></p>
-        <p class="num num--2" data-view style="--speed: 160px"><span class="num-fig">00</span><span class="cap"><b>Projects</b><br>built</span></p>
-        <p class="num num--3" data-view style="--speed: 110px"><span class="num-fig">00</span><span class="cap"><b>People</b><br>in the collective</span></p>
+        <p class="num num--1 drift" data-view style="--speed: 80px"><span class="num-fig">00</span><span class="cap"><b>Years</b><br>of practice</span></p>
+        <p class="num num--2 drift" data-view style="--speed: 160px"><span class="num-fig">00</span><span class="cap"><b>Projects</b><br>built</span></p>
+        <p class="num num--3 drift" data-view style="--speed: 110px"><span class="num-fig">00</span><span class="cap"><b>People</b><br>in the collective</span></p>
       </div>
 
-      <div class="contact" id="touch">
-        <h2 class="stack contact-headline">
+      <div class="grid contact" id="touch">
+        <h2 class="stack hero-headline contact-headline">
           <span class="ln">Let's</span>
           <span class="ln">draw it</span>
           <span class="ln accent">together.</span>
@@ -307,7 +296,7 @@
         </dl>
 
         <!-- The form opens the visitor's email app with the message filled in. -->
-        <form class="contact-form" action="mailto:hello@your-domain.com" method="post" enctype="text/plain" data-mailto="hello@your-domain.com">
+        <form class="contact-form" action="mailto:hello@your-domain.com" method="post" enctype="text/plain">
           <label><span class="cap dim">Name</span><input type="text" name="name" autocomplete="name" required></label>
           <label><span class="cap dim">Email</span><input type="email" name="email" autocomplete="email" required></label>
           <label><span class="cap dim">Message</span><textarea name="message" rows="3" required></textarea></label>

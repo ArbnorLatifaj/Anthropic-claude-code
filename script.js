@@ -1,6 +1,8 @@
 // kolektiva. — scroll effects and small behaviours.
 // The page still reads top to bottom without this file; it adds the
 // pinned scenes, the letter reveals, the menu and the chapter bar.
+// The menu and the chapter bar are built from the chapters in index.html,
+// so a chapter is added or renamed in one place.
 (function () {
   'use strict';
 
@@ -12,7 +14,38 @@
   var clamp = function (v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; };
   var $$ = function (sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); };
 
-  // ───── 1. Split headlines into letters, statements into words ─────
+  var make = function (tag, cls, text) {
+    var el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (text != null) el.textContent = text;
+    return el;
+  };
+
+  // ───── 1. Menu and chapter bar, one link per chapter ─────
+  var menuNav = document.querySelector('.menu-nav');
+  var chapterbar = document.querySelector('.chapterbar');
+  $$('[data-chapter]').forEach(function (chapter) {
+    var href = '#' + chapter.id;
+
+    var item = make('a');
+    item.href = href;
+    item.append(
+      make('span', 'type', chapter.querySelector('.divider-label .type').textContent),
+      make('span', 'menu-word', chapter.querySelector('.divider-title').textContent)
+    );
+    menuNav.appendChild(item);
+
+    var label = make('span', 'cap');
+    label.append(make('span', 'hide-s', 'Chapter '), chapter.querySelector('.divider-numeral').textContent);
+    var bar = make('span', 'bar');
+    bar.appendChild(make('i'));
+    var link = make('a');
+    link.href = href;
+    link.append(label, bar);
+    chapterbar.appendChild(link);
+  });
+
+  // ───── 2. Split headlines into letters, statements into words ─────
   var srCopy = function (el) {
     var sr = document.createElement('span');
     sr.className = 'sr-only';
@@ -62,7 +95,7 @@
     el.insertBefore(sr, el.firstChild);
   });
 
-  // ───── 2. Type the logo on arrival ─────
+  // ───── 3. Type the logo on arrival ─────
   var wordmark = document.querySelector('.intro-wordmark');
   var wordmarkText = document.querySelector('.wordmark-text');
   if (wordmark && wordmarkText && motion) {
@@ -82,7 +115,7 @@
     setTimeout(typeNext, 400);
   }
 
-  // ───── 3. Scroll engine ─────
+  // ───── 4. Scroll engine ─────
   var pins = [], views = [], chapters = [];
   var vh = window.innerHeight, vw = window.innerWidth;
 
@@ -101,14 +134,15 @@
         el: el, top: pageTop(el), height: el.offsetHeight, last: -1,
         track: track,
         trackWidth: track ? track.scrollWidth : 0,
-        lead: el.classList.contains('sheets') ? 0.45 : 0, // how far in from the right the track starts
+        // data-hscroll="0.45": the track starts that share of the screen in from the right
+        lead: parseFloat(el.getAttribute('data-hscroll')) || 0,
       };
     });
     views = $$('[data-view]').map(function (el) {
       return { el: el, top: pageTop(el), height: el.offsetHeight, last: -1 };
     });
     chapters = $$('[data-chapter]').map(function (el) {
-      var link = document.querySelector('.chapterbar [data-bar="' + el.id + '"]');
+      var link = chapterbar.querySelector('a[href="#' + el.id + '"]');
       return { el: el, top: pageTop(el), height: el.offsetHeight, link: link, fill: link && link.querySelector('i'), last: -1 };
     });
   };
@@ -175,7 +209,7 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
   }
 
-  // ───── 4. Menu ─────
+  // ───── 5. Menu ─────
   var burger = document.querySelector('.burger');
   var menu = document.getElementById('menu');
   var setMenu = function (open) {
@@ -184,14 +218,12 @@
     burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     menu.setAttribute('aria-hidden', String(!open));
   };
-  if (burger && menu) {
-    burger.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
-  }
+  burger.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
-  // ───── 5. Links that jump to a chapter ─────
-  // A chapter opens on its title card, so land in the middle of that card
-  // (where the title is fully visible) rather than on its dark first frame.
+  // ───── 6. Links that jump within the page ─────
+  // When the target opens on a pinned scene (a chapter's title card), land in
+  // the middle of it, where it is fully shown, rather than on its first frame.
   document.addEventListener('click', function (e) {
     var link = e.target.closest && e.target.closest('a[href^="#"]');
     if (!link) return;
@@ -200,12 +232,12 @@
     e.preventDefault();
     setMenu(false);
     var y = pageTop(target);
-    var card = motion && target.hasAttribute('data-chapter') ? target.querySelector('.divider') : null;
-    if (card) y += (card.offsetHeight - window.innerHeight) * 0.5;
+    var first = target.firstElementChild;
+    if (motion && first && first.hasAttribute('data-pin')) y += (first.offsetHeight - window.innerHeight) * 0.5;
     window.scrollTo({ top: y, behavior: motion ? 'smooth' : 'auto' });
   });
 
-  // ───── 6. Contact form → opens the visitor's email app ─────
+  // ───── 7. Contact form → opens the visitor's email app ─────
   var form = document.querySelector('.contact-form');
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -213,12 +245,11 @@
       var data = new FormData(form);
       var subject = 'Website enquiry from ' + (data.get('name') || '');
       var body = (data.get('message') || '') + '\n\n' + (data.get('name') || '') + '\n' + (data.get('email') || '');
-      window.location.href = 'mailto:' + form.getAttribute('data-mailto') +
+      window.location.href = form.getAttribute('action') +
         '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       var note = form.querySelector('.form-note');
       if (!note) {
-        note = document.createElement('p');
-        note.className = 'form-note';
+        note = make('p', 'form-note');
         note.setAttribute('role', 'status');
         form.appendChild(note);
       }
@@ -226,6 +257,6 @@
     });
   }
 
-  // ───── 7. Keep the copyright year current ─────
+  // ───── 8. Keep the copyright year current ─────
   $$('.year').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
 })();
